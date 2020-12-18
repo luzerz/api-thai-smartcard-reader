@@ -4,11 +4,12 @@
 - Run `$ npm install`
 - Run `$ npm run dev`
 
-
 ### MAC
 - Run `$ sudo ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null`
 - Run `$ brew install pcsc-lite`
+- Run `$ npm install`
 - Run `$ npm run dev`
+
 ### Ubuntu & Pi
 - Run `$ sudo apt-get install libpcsclite1 libpcsclite-dev pcscd`
 - Run `$ npm install`
