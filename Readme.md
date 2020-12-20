@@ -1,6 +1,7 @@
 ## Installation
 ### Windows
-- Required Python 2.7 for node-gyp (or rather, gyp)
+- Required Visual-studio 2019(Desktop development with c++) [Click to Download](https://docs.microsoft.com/en-us/cpp/build/vscpp-step-0-installation?view=msvc-160) 
+- Required Python 2.7 for node-gyp [Download](https://www.python.org/download/releases/2.7)
 - Start PowerShell as Administrator and run: `$ npm install --global --production windows-build-tools`, or use option 2 in <https://github.com/nodejs/node-gyp#on-windows>
 - Run `$ npm install`
 - Run `$ npm run dev`
