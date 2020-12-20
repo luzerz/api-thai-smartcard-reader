@@ -1,5 +1,6 @@
 ## Installation
 ### Windows
+- Required Python 2.7 for node-gyp (or rather, gyp)
 - Start PowerShell as Administrator and run: `$ npm install --global --production windows-build-tools`, or use option 2 in <https://github.com/nodejs/node-gyp#on-windows>
 - Run `$ npm install`
 - Run `$ npm run dev`
