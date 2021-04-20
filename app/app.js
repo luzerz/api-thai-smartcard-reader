@@ -61,6 +61,19 @@ app.route('/call').get((req,res)=>{
     res.send(data)
 })
 
+app.route('/exit').get((req,res)=>{
+    setTimeout(function () {
+    process.on("exit", function () {
+        require("child_process").spawn(process.argv.shift(), process.argv, {
+            cwd: process.cwd(),
+            detached : true,
+            stdio: "inherit"
+        });
+    });
+    process.exit();
+    }, 1000);
+})
+
 app.listen(port, () => {
   console.log('server is running on port: ', port);
 });
