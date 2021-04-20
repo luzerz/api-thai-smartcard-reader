@@ -54,11 +54,9 @@ class ThaiCardReader extends EventEmitter {
   startListener() {
     this.pcsc.on('reader', this.onReader)
     this.pcsc.on('error', (err) => {
-
       // Recreate if device has been disconnected
       if(this.autoRecreate) {
         this.emit(EVENTS.DEVICE_WAITING, err)
-        
         // Re-create
         this.pcsc = pcsclite()
         this.startListener()
@@ -67,6 +65,9 @@ class ThaiCardReader extends EventEmitter {
         this.emit(EVENTS.PCSC_CLOSE)
       }
     })
+  }
+  disconnectState(){
+    this.pcsc.close()
   }
 
   onReader(reader) {
@@ -121,7 +122,7 @@ class ThaiCardReader extends EventEmitter {
               }
             })
           })
-        }, 1000)
+        }, 5000)
       }
     })
 

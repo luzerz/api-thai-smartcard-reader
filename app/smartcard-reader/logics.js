@@ -43,6 +43,7 @@ const readData = async (reader, protocol, withPhoto, callback) => {
     data.citizenId = citizenId
     
     const personalInfo = rawPersonalInfo.split(' ').filter(o => o !== '')
+    console.log("PR",personalInfo)
     data.titleTH = personalInfo[0]
     data.firstNameTH = personalInfo[1]
     data.lastNameTH = personalInfo[2]
@@ -50,17 +51,19 @@ const readData = async (reader, protocol, withPhoto, callback) => {
     data.firstNameEN = personalInfo[4]
     data.lastNameEN = personalInfo[5]
     
-    const tempBirthday = personalInfo[6].slice(0, -1)
-    data.birthday = parseDateToString(tempBirthday)
+    if (personalInfo[6]){
+      const tempBirthday = personalInfo[6].slice(0, -1)
+      data.birthday = parseDateToString(tempBirthday)
 
-    if(personalInfo[6].slice(-1) === '1') {
-      data.gender = 'male'
-    }
-    else  if(personalInfo[6].slice(-1) === '2') {
-      data.gender = 'female'
-    }
-    else {
-      data.gender = 'other' 
+      if(personalInfo[6].slice(-1) === '1') {
+        data.gender = 'male'
+      }
+      else  if(personalInfo[6].slice(-1) === '2') {
+        data.gender = 'female'
+      }
+      else {
+        data.gender = 'other' 
+      }
     }
 
     const tempAddress = rawAddress.split(' ').filter(o => o !== '')

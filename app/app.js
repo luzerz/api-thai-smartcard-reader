@@ -16,17 +16,24 @@ app.route('').get((req, res) => {
 app.route('/getdata').get((req ,res) => {
     const reader = new ThaiCardReader()
     reader.readMode = MODE.PERSONAL_PHOTO
-    reader.autoRecreate = false
+    let FistCall = true
+    reader.autoRecreate = true
     reader.startListener()
+    
     reader.on(EVENTS.CARD_REMOVED,()=>{
-        console.log("Card Removed")
+        if (FistCall) {
+            FistCall = false
+            const err = {
+                "ERROR":"CARD REMOVED"
+            }
+            reader.disconnectState()
+            res.send(err)
+        }
     })
     reader.on(EVENTS.DEVICE_DISCONNECTED,()=>{
-        console.log("DEVICE_DISCONNECTED")
         res.send("DEVICE_DISCONNECTED")
     })
     reader.on(EVENTS.PCSC_CLOSE, ()=>{
-        console.log("PCSC_CLOSE")
         let data = {
             "ERROR":"PCSC_CLOSE"
         }
@@ -36,12 +43,22 @@ app.route('/getdata').get((req ,res) => {
         console.log(obj)
     })
     reader.on(EVENTS.READING_COMPLETE, (obj) => {
-        res.send(obj)
+        if (FistCall){
+            FistCall = false
+            res.send(obj)
+        }
     })
     reader.on(EVENTS.READING_FAIL,(err) => {
         console.log("Error",err)
+        reader.startListener()
     })
-    
+
+})
+app.route('/call').get((req,res)=>{
+    const data ={
+        "STATUS":"SUCCESS"
+    }
+    res.send(data)
 })
 
 app.listen(port, () => {
