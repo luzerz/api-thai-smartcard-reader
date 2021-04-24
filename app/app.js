@@ -21,23 +21,13 @@ app.route('/getdata').get((req ,res) => {
     reader.startListener()
     
     reader.on(EVENTS.CARD_REMOVED,()=>{
-        if (FistCall) {
-            FistCall = false
-            const err = {
-                "ERROR":"CARD REMOVED"
-            }
-            reader.disconnectState()
-            res.send(err)
-        }
+        console.log("CARD REMOVED")
     })
     reader.on(EVENTS.DEVICE_DISCONNECTED,()=>{
-        res.send("DEVICE_DISCONNECTED")
+        console.log("DEVIEC_DISCONECTED")
     })
     reader.on(EVENTS.PCSC_CLOSE, ()=>{
-        let data = {
-            "ERROR":"PCSC_CLOSE"
-        }
-        res.send(data)
+        console.log("PCSC_CLOSE")
     })
     reader.on(EVENTS.READING_PROGRESS, (obj) => {
         console.log(obj)
